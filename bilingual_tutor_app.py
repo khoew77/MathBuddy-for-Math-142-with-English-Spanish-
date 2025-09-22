@@ -210,7 +210,7 @@ def render_message_content(content):
 
 def page_1():
     st.title(t("welcome_title"))
-    st.image("mathbuddy_promo.png", caption=t("welcome_image_caption"), width=300)
+    st.image("MathBuddy.png", caption=t("welcome_image_caption"), width=300)
     st.write(t("welcome_prompt"))
     st.session_state.user_number = st.text_input(t("student_id_label"), value=st.session_state.get("user_number", ""))
     st.session_state.user_name = st.text_input(t("name_label"), value=st.session_state.get("user_name", ""))
