@@ -285,7 +285,6 @@ def page_4():
     if not st.session_state.get("feedback_saved"):
         with st.spinner(t("spinner_generating_feedback")):
             chat_history = "\n".join(f"{msg['role']}: {msg['content']}" for msg in st.session_state.messages)
-            
             prompt_summary_en = f"""This is a conversation between a student and MathBuddy:
 {chat_history}
 
@@ -316,8 +315,24 @@ Por favor, resume los conceptos clave discutidos, señala las fortalezas del est
 
     if st.button(t("previous_button"), key="page4_back"):
         st.session_state.step = 3
-        # When going back, clear the feedback so it can be regenerated
         if "experiment_plan" in st.session_state:
             del st.session_state["experiment_plan"]
         st.session_state.feedback_saved = False
         st.rerun()
+
+# --- MAIN ROUTING LOGIC ---
+if "step" not in st.session_state:
+    st.session_state.step = 1
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+if "recent_message" not in st.session_state:
+    st.session_state.recent_message = {"user": "", "assistant": ""}
+
+if st.session_state.step == 1:
+    page_1()
+elif st.session_state.step == 2:
+    page_2()
+elif st.session_state.step == 3:
+    page_3()
+elif st.session_state.step == 4:
+    page_4()
