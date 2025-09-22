@@ -14,7 +14,6 @@ import re
 # --- 1. TRANSLATIONS DICTIONARY ---
 translations = {
     "en": {
-        "lang_selector_label": "Select your language:",
         "page_title": "MathBuddy",
         "welcome_title": "📚 Welcome to MathBuddy",
         "welcome_image_caption": "Your Study Companion for Math Success 📱",
@@ -52,7 +51,17 @@ translations = {
         "feedback_not_generated": "No summary generated yet.",
         "save_failed": "❌ Failed to save conversation. Please try again!",
         "initial_prompt": (
-            "You are a helpful, supportive chatbot named MathBuddy... (Your full English prompt here)"
+            "You are a helpful, supportive chatbot named MathBuddy. Your job is to guide college-level math students without solving problems for them. "
+            "Your tone is friendly, clear, and educational. Do not use LaTeX or special symbols. Explain math in plain English. "
+            "If the user asks for a graph of a specific function (e.g., 'graph y=x^2'), your response MUST start immediately with the Python code block and contain NOTHING ELSE. "
+            "The code must be enclosed in a single Python code block (```python...). "
+            "Your code will be executed in an environment where `fig, ax = plt.subplots()` has ALREADY been run. "
+            "Therefore, you MUST NOT include `import matplotlib.pyplot as plt` or `fig, ax = plt.subplots()` in your code. "
+            "You MUST use the pre-existing `ax` variable to plot (e.g., `ax.plot(...)`, `ax.set_title(...)`, `ax.grid(True)`). "
+            "Do NOT provide code for a different function than the one requested. Do not include `plt.show()`."
         )
     },
-    "es
+    "es": {
+        "page_title": "MathBuddy",
+        "welcome_title": "📚 Bienvenido a MathBuddy",
+        "welcome_image_caption": "Tu
