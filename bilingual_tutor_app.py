@@ -26,8 +26,11 @@ translations = {
         "instructions_title": "📖 How to Use MathBuddy",
         "instructions_body": """
            **1. Start a Conversation:** Explain your math question, problem, or goal.
+           
            **2. Get Guided Feedback:** MathBuddy will ask questions and suggest improvements.
+           
            **3. Ask Anything:** Don't hesitate to ask for clarification.
+           
            **4. Move On When Ready:** When you're done, just click the **Next** button.
         """,
         "previous_button": "◀️ Previous",
@@ -74,8 +77,11 @@ translations = {
         "instructions_title": "📖 Cómo Usar MathBuddy",
         "instructions_body": """
            **1. Inicia una Conversación:** Explica tu pregunta de matemáticas, problema u objetivo.
+           
            **2. Recibe Orientación:** MathBuddy te hará preguntas y sugerirá mejoras.
+           
            **3. Pregunta lo que Quieras:** No dudes en pedir aclaraciones.
+           
            **4. Avanza Cuando Estés Listo:** Cuando termines, simplemente haz clic en el botón **Siguiente**.
         """,
         "previous_button": "◀️ Anterior",
