@@ -285,7 +285,39 @@ def page_4():
     if not st.session_state.get("feedback_saved"):
         with st.spinner(t("spinner_generating_feedback")):
             chat_history = "\n".join(f"{msg['role']}: {msg['content']}" for msg in st.session_state.messages)
-            prompt_summary_en = f"This is a conversation between a student and MathBuddy:\n{chat_history}\n\nPlease summarize the key concepts discussed, note the student's areas of strength, and suggest improvements or study tips for them to continue their learning."
-            prompt_summary_es = f"Esta es una conversación entre un estudiante y MathBuddy:\n{chat_history}\n\nPor favor, resume los conceptos clave discutidos, señala las fortalezas del estudiante y sugiere mejoras o consejos de estudio para que continúen aprendiendo."
+            
+            prompt_summary_en = f"""This is a conversation between a student and MathBuddy:
+{chat_history}
+
+Please summarize the key concepts discussed, note the student's areas of strength, and suggest improvements or study tips for them to continue their learning."""
+            
+            prompt_summary_es = f"""Esta es una conversación entre un estudiante y MathBuddy:
+{chat_history}
+
+Por favor, resume los conceptos clave discutidos, señala las fortalezas del estudiante y sugiere mejoras o consejos de estudio para que continúen aprendiendo."""
+            
             prompt = prompt_summary_es if st.session_state.language == 'es' else prompt_summary_en
-            response = client.chat.completions.create(model=MODEL, messages=[{"role": "system", "content
+            
+            response = client.chat.completions.create(
+                model=MODEL, 
+                messages=[{"role": "system", "content": prompt}]
+            )
+            st.session_state.experiment_plan = response.choices[0].message.content
+
+    st.subheader(t("subheader_feedback_summary"))
+    st.write(st.session_state.get("experiment_plan", t("feedback_not_generated")))
+    
+    if not st.session_state.get("feedback_saved"):
+        all_data_to_store = st.session_state.messages + [{"role": "feedback_summary", "content": st.session_state.get("experiment_plan", "")}]
+        if save_to_db(all_data_to_store):
+            st.session_state.feedback_saved = True
+        else:
+            st.error(t("save_failed"))
+
+    if st.button(t("previous_button"), key="page4_back"):
+        st.session_state.step = 3
+        # When going back, clear the feedback so it can be regenerated
+        if "experiment_plan" in st.session_state:
+            del st.session_state["experiment_plan"]
+        st.session_state.feedback_saved = False
+        st.rerun()
